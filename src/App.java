@@ -6,6 +6,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         HashMap<String, Student> students = new HashMap<String, Student>();
         String choice = "";
+        String givenID = "";
 
         while (!choice.equals("5"))
         {
@@ -21,10 +22,38 @@ public class App {
                 
                 case "2":
                     System.out.println("give an ID:");
-                    String id = scan.nextLine();
-                    
+                    givenID = scan.nextLine();
+                    if(isStudent(students, givenID))
+                    {
+                        System.out.println("student with ID " + givenID + " is: " + students.get(givenID));
+                        System.out.println();
 
-                    
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    break;
+                
+                case "3":
+                    System.out.println("give an ID:");
+                    givenID = scan.nextLine();
+                    if(isStudent(students, givenID))
+                    {
+                        students.remove(givenID);
+                        System.out.println("Student removed successfully");
+                        System.out.println();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    break;
+                
+                case "4":
+                    printstuff(students);
                     break;
             }
         }
@@ -38,6 +67,7 @@ public class App {
         System.out.println("3 - Delete student");
         System.out.println("4 - Show all students");
         System.out.println("5 - Exit");
+        System.out.println();
     }
 
     public static void addStudent(HashMap<String, Student> students)
@@ -55,15 +85,15 @@ public class App {
         students.put(infoID, newStud);
     }
 
-    public static boolean findStudent(HashMap<String, Student> students, String id)
+    public static boolean isStudent(HashMap<String, Student> students, String id)
     {
         if (students.containsKey(id))
         {
-            students.get(id);
             return true;
         }
         else
         {
+            System.out.println();
             System.out.println("invalid ID");
             return false;
         }
